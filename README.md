@@ -10,3 +10,5 @@
 1. Файлы override.tf и override.tf.json
 1. Файлы заканчивающиеся на _override.tf и _override.tf.json
 1. Файлы .terraformrc и terraform.rc
+
+## Изменил файл для для коммита через IDE Py Charm
