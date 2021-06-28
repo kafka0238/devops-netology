@@ -35,30 +35,46 @@
 	```
     - **Убрать `break`, чтоб цикл не останавливался на первом подходящем условии**
     - **Добавить в bash_command еще одну строчку `pwd`, чтоб получить путь до рабочей директории, и потом в цикле добавлять перед выводом `result_os.split('\n')[-2] + '/'`**
+	
+	```python
+    #!/usr/bin/env python3
 
+    import os
+ 
+	path_to_repo = '~/netology/sysadm-homeworks'
+ 	
+	os.chdir(path_to_repo)
+	absolut_repo_path = os.getcwd()
+	result_os = os.popen("git status").read()
+	for result in result_os.split('\n'):
+        if result.find('modified') != -1:
+            prepare_result = result.replace('\tmodified:   ', '')
+            print(absolut_repo_path + '/' + prepare_result)
+
+	```
 
 1. Доработать скрипт выше так, чтобы он мог проверять не только локальный репозиторий в текущей директории, а также умел воспринимать путь к репозиторию, который мы передаём как входной параметр. Мы точно знаем, что начальство коварное и будет проверять работу этого скрипта в директориях, которые не являются локальными репозиториями.
 	```python
     #!/usr/bin/env python3
 
-    import os
-    import sys
-    
-    path_to_repo = sys.argv[1]
-    if path_to_repo[-1] != '/':
-        path_to_repo += '/'
-    
-    if os.path.exists(path_to_repo + '.git'):
-        bash_command = [f"cd {path_to_repo}", "git status", "pwd"]
-        result_os = os.popen(' && '.join(bash_command)).read()
-        absolut_path = os.popen('pwd').read()
-        is_change = False
-        for result in result_os.split('\n'):
-            if result.find('modified') != -1:
-                prepare_result = result.replace('\tmodified:   ', '')
-                print(result_os.split('\n')[-2] + '/' + prepare_result)
-    else:
-        print('this directory has not repository')
+	import os
+	import sys
+	
+	path_to_repo = sys.argv[1]
+	if path_to_repo[-1] != '/':
+	    path_to_repo += '/'
+	
+	os.chdir(path_to_repo)
+	absolut_repo_path = os.getcwd()
+	
+	if os.path.exists(path_to_repo + '.git'):
+	    result_os = os.popen("git status").read()
+	    for result in result_os.split('\n'):
+	        if result.find('modified') != -1:
+	            prepare_result = result.replace('\tmodified:   ', '')
+	            print(absolut_repo_path + '/' + prepare_result)
+	else:
+	    print('this directory has not repository')
 
 
 	```
