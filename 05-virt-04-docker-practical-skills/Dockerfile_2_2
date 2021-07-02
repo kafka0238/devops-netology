@@ -1,0 +1,12 @@
+FROM    ubuntu:latest
+
+RUN     apt-get update && apt-get install -y wget sudo gnupg && \
+        wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add - && \
+        echo "deb https://pkg.jenkins.io/debian-stable binary/" >> /etc/apt/sources.list && \
+        apt-get update && apt-get install -y openjdk-11-jdk jenkins
+
+EXPOSE  8080
+
+WORKDIR /usr/share/jenkins/
+
+CMD     ["java", "-jar", "/usr/share/jenkins/jenkins.war"]

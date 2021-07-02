@@ -1,0 +1,10 @@
+FROM    amazoncorretto
+
+RUN     yum update && yum install wget -y && \
+        wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo && \
+        rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key && \
+        yum install jenkins -y
+
+WORKDIR /usr/lib/jenkins/
+
+CMD     ["java", "-jar", "jenkins.war"]
