@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    volumes:
+      - /netology/postgresql/data:/var/lib/postgresql
+      - /netology/postgresql/dump:/dump
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: netology
+      POSTGRES_USER: netology
+      POSTGRES_DB: netology
