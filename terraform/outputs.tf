@@ -11,9 +11,9 @@ output "region" {
 }
 
 output "private_ip" {
-  value = aws_instance.web.private_ip
+  value = aws_instance.web[0].private_ip
 }
 
 output "subnet_id" {
-  value = aws_instance.web.subnet_id
+  value = aws_instance.web[0].subnet_id
 }

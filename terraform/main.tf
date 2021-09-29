@@ -18,9 +18,50 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+locals {
+  web_instance_type_map = {
+    stage = "t3.micro"
+    prod = "t3.large"
+  }
+}
+
+locals {
+  web_instance_count_map = {
+    stage = 0
+    prod = 1
+  }
+}
+
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+  instance_type = local.web_instance_type_map[terraform.workspace]
+  count = local.web_instance_count_map[terraform.workspace]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = {
+    Name = "Netology"
+  }
+}
+
+locals {
+  instances = {
+    "stage" = {
+    }
+    "prod" = {
+      "t3.micro" = data.aws_ami.ubuntu.id
+      "t3.micro" = data.aws_ami.ubuntu.id
+    }
+  }
+}
+
+resource "aws_instance" "web2" {
+  for_each = local.instances[terraform.workspace]
+
+  ami = each.value
+  instance_type = each.key
 
   tags = {
     Name = "Netology"
