@@ -35,6 +35,8 @@
 
 В качестве результата приложите ссылку на файлы `server.yaml` и `atlantis.yaml`.
 
+**Измененные места отмечены пунктами (# Пункт 1)**
+
 [server.yaml](server.yaml)
 
 [atlantis.yaml](atlantis.yaml)
