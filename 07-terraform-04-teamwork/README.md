@@ -36,6 +36,7 @@
 В качестве результата приложите ссылку на файлы `server.yaml` и `atlantis.yaml`.
 
 [server.yaml](server.yaml)
+
 [atlantis.yaml](atlantis.yaml)
 
 
